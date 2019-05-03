@@ -1,13 +1,11 @@
-const apiBaseURL = "http://localhost:3000";
+const apiBaseURL = "http://localhost:3000";//specify database location for easy referrence further down
 
 // Get all data
 
 const getAllChickens = () => {
-    fetch(`${apiBaseURL}/chicken`)
+    return fetch(`${apiBaseURL}/chicken`)
     .then(response => response.json())
-    .then(parsedResult => {
-        console.log("all Chicken", parsedResult);
-    })
+   
 }
 
 // Get specific data in the database.json
@@ -38,7 +36,7 @@ const updateChicken = (chickenID, chickenObj) => {
     })    
 }
 
-//how to make new entry in the database 
+//Make new entry in the database 
 
 const makeChicken = (chickenObj) => {
     fetch(`${apiBaseURL}/chicken/`,
@@ -57,6 +55,21 @@ const makeChicken = (chickenObj) => {
     })
 }
 
+const deleteChicken = (chickenID) => {
+    fetch(`${apiBaseURL}/chicken/${chickenID}`, 
+        {
+            method: "DELETE"
+        }
+    )
+    .then(response => response.json())
+    .then(parsedResult => {
+        console.log("Delete Chicken", parsedResult);
+    })    
+
+}
+
+// begin calls for above functions
+
 getAllChickens();
 getOneChicken(3); //call const and specify data to be retrieved
 
@@ -68,15 +81,17 @@ const testChickenObj = {
     gender: "male",
     spiceLevel: "3"
 }
-updateChicken(1, testChickenObj); //calling the const updateChicken
-
+//updateChicken(1, testChickenObj); //calling the const updateChicken, passing new info
 
 
 const newChickenObject = {
-    name: "Cluck Taylor",
+    name: "Cluck Norris",
     color: "Blue",
     gender: "Male",
-    spiceLevel: "9000"
+    spiceLevel: "Head on Fire"
 }
 
-makeChicken(newChickenObject); //calling the const makeChicken
+//makeChicken(newChickenObject); //calling the const makeChicken, passing in new info
+
+
+//deleteChicken(5);
